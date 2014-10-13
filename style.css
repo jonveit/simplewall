@@ -1,0 +1,99 @@
+#login {
+	max-width: 960px;
+	margin: 0 auto;
+}
+
+#login form {
+	max-width: 300px;
+	margin: 0 auto;
+	
+	border: 1px solid gray;
+	padding: 10px;
+}
+
+#login form h2 {
+	text-align: center;
+}
+
+#login form input {
+	display: block;
+	width: 80%;
+	margin: 5px auto;
+}
+
+#wrap {
+	width: 70%;
+	max-width: 700px;
+	margin: 5px auto;
+}
+
+#wrap form {
+	width: 90%;
+	margin: 0 auto;
+}
+
+#wrap input[type=text] {
+	width: 80%;
+}
+
+#wrap input[type=submit] {
+	width: %20;
+}
+
+#logout, #display {
+	float: right;
+}
+
+#blogfeed {
+	margin: 0;
+	padding: 0;
+}
+
+#blogfeed li {
+	list-decoration: none;
+	list-style: none;
+	border: 1px solid gray;
+	padding: 5px;
+	margin: 5px;
+}
+
+.postcontrols {
+	background-color: #CCCCCC;
+	padding: 3px;
+	overflow: auto;
+}
+
+#blogfeed button {
+	float: right;
+	
+}
+
+#blogfeed img {
+	float: left;
+	max-width: 120px;
+	max-height: 120px;
+	width: auto;
+	height: auto;
+	margin: 5px;
+}
+
+#editpost {
+	border: 1px solid black;
+	overflow: auto;
+}
+#editpost input, #editpost label, #editpost textarea {
+	display: block;
+	width: 100%;
+}
+
+#editpost textarea {
+	height: 150px;
+}
+
+#errorMessages {
+	max-width: 400px;
+	margin: 0 auto;
+	display: block;
+	
+	padding: 10px;
+}
