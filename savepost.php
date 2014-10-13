@@ -14,7 +14,7 @@ $postid = $_POST['postid'];
 $title = $_POST['title'];
 $url = $_POST['url'];
 $description = $_POST['description'];
-
+$imageurl = $_POST['imageurl'];
 
 
 try {
@@ -27,6 +27,12 @@ try {
 	$stmt->bindParam(':title', $title, PDO::PARAM_STR);
 	$stmt->bindParam(':url', $url, PDO::PARAM_STR);
 	$stmt->bindParam(':description', $description, PDO::PARAM_STR);
+	$num_rows = $stmt->execute();
+	
+	$SQL = "UPDATE image SET url = :imageurl WHERE _f_post = :id";
+	$stmt = $db->prepare($SQL);
+	$stmt->bindParam(':id', $postid, PDO::PARAM_INT);  
+	$stmt->bindParam(':imageurl', $imageurl, PDO::PARAM_STR);  
 	$num_rows = $stmt->execute();
 	
 	if($num_rows > 0){

@@ -11,6 +11,12 @@
 	<link rel="stylesheet" type="text/css" href="style.css" />
 </head>
 <body>
+	<div id="header-wrap">
+		<div id="header">
+			<h2>SimpleWall</h2>
+		</div>
+	</div>
+	
 <div id="wrap">
 	<h2> You have been logged out </h2>
 	<p> Click <a href="index.php"> here </a> to log back in </p>

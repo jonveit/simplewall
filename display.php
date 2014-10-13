@@ -11,7 +11,7 @@
 </head>
 <body>
 	<div id="display">
-		<ul id="blogfeed">
+		<ul id="postfeed">
 				<?php include "displayposts.php" ?>
 		</ul>
 	</div>

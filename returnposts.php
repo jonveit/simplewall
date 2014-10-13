@@ -53,7 +53,23 @@ try {
 			$image = $imagestatement->fetch();
 			$imageurl = $image['url'];
 
-			echo "<li><div class='postcontrols'><button class='deletepost' value='$id'>Delete</button><button class='editpost' value='$id'>Edit</button></div><div><img src='$imageurl' /><h3><a href='$url'>$title</a></h3><p>$description</p></div></li>";
+			echo <<< EOT
+			<li class='post' value='$id'>
+				<div class='postcontrols'>
+					<button class='deletepost' value='$id'>Delete</button>
+					<button class='editpost' value='$id'>Edit</button>
+				</div>
+				<div class='postcontent'>
+					<img src='$imageurl' />
+					<div>
+						<h3><a href='$url'>$title</a></h3>
+						<p>$description</p>
+						<span><a href='$url'>Read More...</a></span>
+					</div>
+				</div>
+			</li>
+EOT;
+			
 		}
 
 	} else {

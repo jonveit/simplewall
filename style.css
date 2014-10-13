@@ -1,55 +1,108 @@
+body {
+	margin: 0;
+	padding: 0;
+}
+
 #login {
-	max-width: 960px;
-	margin: 0 auto;
+	
 }
 
 #login form {
+	background-color: #E3E3E3;
 	max-width: 300px;
-	margin: 0 auto;
-	
+	margin: 20px auto;
 	border: 1px solid gray;
 	padding: 10px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
 }
 
-#login form h2 {
+#login h2 {
 	text-align: center;
+	margin-bottom: 40px;
 }
 
-#login form input {
+#login input {
+	max-width: 300px;
 	display: block;
 	width: 80%;
-	margin: 5px auto;
+	margin: 10px auto;
+}
+
+#errorMessages {
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	border: 1px black;
+}
+
+/***
+/* Main.php */
+
+
+#header-wrap {
+	background-color: #E3E3E3;
+	border-bottom: 1px solid black;
+	padding: 2px;
+	overflow: auto;
+}
+
+#header {
+	width: 90%;
+	max-width: 500px;
+	margin: 0 auto;
+
+	overflow: auto;
+}
+
+#header h2 {
+	float: left;
+}
+
+#header button {
+	float: right;
+	margin-top: 10px;
 }
 
 #wrap {
-	width: 70%;
-	max-width: 700px;
-	margin: 5px auto;
-}
-
-#wrap form {
 	width: 90%;
+	max-width: 500px;
 	margin: 0 auto;
 }
 
+#wrap form {
+	
+	margin-top: 10px;
+	margin-bottom: 10px;
+	border: 1px solid black;
+	padding: 1.6%;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	background-color: #E3E3E3;
+
+}
+
 #wrap input[type=text] {
-	width: 80%;
+	width: 76.8%;
 }
 
 #wrap input[type=submit] {
-	width: %20;
+	width: 16.8%;
 }
 
 #logout, #display {
 	float: right;
 }
 
-#blogfeed {
+#postfeed {
 	margin: 0;
 	padding: 0;
 }
 
-#blogfeed li {
+#postfeed li {
+	background-color: white;
 	list-decoration: none;
 	list-style: none;
 	border: 1px solid gray;
@@ -63,24 +116,48 @@
 	overflow: auto;
 }
 
-#blogfeed button {
+.postcontrols button {
 	float: right;
-	
 }
 
-#blogfeed img {
+.postcontent {
+	overflow: auto;
+}
+
+.postcontent img {
 	float: left;
 	max-width: 120px;
 	max-height: 120px;
 	width: auto;
 	height: auto;
 	margin: 5px;
+	margin-top: 20px;
 }
+
+.postcontent div {
+	margin-left: 130px;
+}
+
+.postcontent span {	
+	float: right;
+}
+
+/** editpost.php **/
 
 #editpost {
 	border: 1px solid black;
 	overflow: auto;
 }
+
+#editpost img {
+	max-width: 120px;
+	max-height: 120px;
+	width: auto;
+	height: auto;
+	margin: 5px;
+	margin-top: 20px;
+}
+
 #editpost input, #editpost label, #editpost textarea {
 	display: block;
 	width: 100%;
@@ -89,6 +166,32 @@
 #editpost textarea {
 	height: 150px;
 }
+
+#editpost input[type=submit], #editpost button {
+	margin-top: 10px;
+	float: right;
+	width: 15%;
+}
+
+/** displaypost.php **/
+
+.display post {
+	border: 0;
+}
+
+#display #postfeed li {
+	border: 0;
+}
+/*#display img {
+	float: left;
+	max-width: 120px;
+	max-height: 120px;
+	width: auto;
+	height: auto;
+	margin: 5px;
+	margin-top: 20px;
+}*/
+
 
 #errorMessages {
 	max-width: 400px;

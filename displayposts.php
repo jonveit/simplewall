@@ -42,7 +42,19 @@ try {
 			$image = $imagestatement->fetch();
 			$imageurl = $image['url'];
 
-			echo "<li><img src='$imageurl' /><h3><a href='$url'>$title</a></h3><p>$description</p></li>";
+			echo <<< EOT
+				<li class='post' value='$id'>
+					<div class='postcontent'>
+						<img src='$imageurl' />
+						<div>
+							<h3><a href='$url'>$title</a></h3>
+							<p>$description</p>
+							<span><a href='$url'>Read More...</a></span>
+						</div>
+					</div>
+				</li>
+
+EOT;
 		}
 
 	} else {
