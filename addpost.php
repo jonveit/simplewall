@@ -14,7 +14,6 @@ if (!(isset($_SESSION['login']) && $_SESSION['login'] != '')) {
 ////
 
 $url = $_GET['url'];
-
 $firephp->log($url);
 
 function file_get_contents_curl($url)
@@ -42,6 +41,7 @@ $nodes = $doc->getElementsByTagName('title');
 $title = '';
 $description = '';
 
+
 //get and display what you need:
 $title = $nodes->item(0)->nodeValue;
 
@@ -66,11 +66,12 @@ try {
 	array(PDO::ATTR_EMULATE_PREPARES => false, PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
 	
 	$userid = $_SESSION['userid'];
+	$date = date('l, F j, Y');
 	
-	$SQL = "INSERT INTO news (_f_user,title,url,description) VALUES (:userid,:title,:url,:description)";
+	$SQL = "INSERT INTO news (_f_user,title,url,description,date) VALUES (:userid,:title,:url,:description,:now)";
 
 	$q = $db->prepare($SQL);
-	$affected_rows = $q->execute(array(':userid'=>$userid,':title'=>$title, ':url'=>$url, ':description'=>$description));
+	$affected_rows = $q->execute(array(':userid'=>$userid,':title'=>$title, ':url'=>$url, ':description'=>$description, ':now'=>$date));
 	
 	$postid = $db->lastInsertId();
 	

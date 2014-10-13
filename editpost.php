@@ -23,6 +23,7 @@ try {
 	$title = $row['title'];
 	$url = $row['url'];
 	$description = $row['description'];
+	$date = $row['date'];
 	
 	$SQL = "SELECT * FROM image WHERE _f_post = '$id'";
 	$statement = $db->query($SQL);
@@ -68,6 +69,8 @@ try {
 			<input type="text" name="url" value="<?php echo $url; ?>" />
 			<label> Description </label>
 			<textarea name="description"> <?php echo $description; ?> </textarea>
+			<label> Date </label>
+			<input type="text" name="date" value=<?php echo $date; ?> />
 			<input type="submit" value="Save" />
 			<button action="index.php">Cancel</button>
 		</form>

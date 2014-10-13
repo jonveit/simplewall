@@ -47,6 +47,7 @@ try {
 			$title = $row['title'];
 			$description = $row['description'];
 			$url = $row['url'];
+			$date = $row['date'];
 			
 			$SQL = "SELECT * FROM image WHERE _f_post = $id";
 			$imagestatement = $db->query($SQL);
@@ -60,11 +61,12 @@ try {
 					<button class='editpost' value='$id'>Edit</button>
 				</div>
 				<div class='postcontent'>
-					<img src='$imageurl' />
+					<h3><a href='$url' target="_blank">$title</a></h3>
+					<div> $date </div>
 					<div>
-						<h3><a href='$url'>$title</a></h3>
+						<img src='$imageurl' />
 						<p>$description</p>
-						<span><a href='$url'>Read More...</a></span>
+						<span><a href='$url' target="_blank">Read More...</a></span>
 					</div>
 				</div>
 			</li>
