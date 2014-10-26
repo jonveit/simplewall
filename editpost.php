@@ -1,8 +1,6 @@
 <?php
 
-require_once "config.php";
 require_once "FirePHP.class.php";
-
 $firephp = FirePHP::getInstance(true); 
 
 session_start();
@@ -11,19 +9,22 @@ if (!(isset($_SESSION['login']) && $_SESSION['login'] != '')) {
 }
 
 $id = trim($_GET['postid']);
+$user = $_SESSION['user'];
 
 try {
-	$db = new PDO("mysql:host=".DB_HOST.";port=".DB_PORT.";dbname=".DB_NAME.";charset=utf8", DB_USER, DB_PASS, 
-	array(PDO::ATTR_EMULATE_PREPARES => false, PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
 	
-	$SQL = "SELECT * FROM news WHERE id = '$id'";
+		
+	require_once "config.php";
+	require_once "dbaccess.php";
+	
+	$SQL = "SELECT * FROM post WHERE id = '$id'";
 	$statement = $db->query($SQL);
 	$row = $statement->fetch();
 	
 	$title = $row['title'];
 	$url = $row['url'];
 	$description = $row['description'];
-	$date = $row['date'];
+	$postdate = $row['postdate'];
 	
 	$SQL = "SELECT * FROM image WHERE _f_post = '$id'";
 	$statement = $db->query($SQL);
@@ -49,8 +50,8 @@ try {
 	<div id="header-wrap">
 		<div id="header">
 			<h2>SimpleWall for <?php echo ucwords($user); ?></h2>
-			<button id="logout" onclick="window.location=logout.php">Logout</button>
-			<button id="display" onclick="window.location=display.php?user=$user">Display</button>
+			<button id="logout" onclick="location.href='logout.php'">Logout</button>
+			<button id="display" onclick="location.href='display.php?user=<?php echo $user ?>'">Display</button>
 		</div>
 	</div>
 	
@@ -70,9 +71,9 @@ try {
 			<label> Description </label>
 			<textarea name="description"> <?php echo $description; ?> </textarea>
 			<label> Date </label>
-			<input type="text" name="date" value=<?php echo $date; ?> />
+			<input type="text" name="postdate" value="<?php echo $postdate; ?>" />
 			<input type="submit" value="Save" />
-			<button action="index.php">Cancel</button>
+			<button onclick="location.href='index.php'">Cancel</button>
 		</form>
 	</div>
 	<script>

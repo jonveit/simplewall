@@ -2,9 +2,9 @@
 	
 define('DB_TYPE', 'mysql');
 define('DB_HOST', 'localhost');
-define('DB_PORT', '8889');
-define('DB_NAME', 'customnewsfeed');
-define('DB_USER', 'admin');
-define('DB_PASS', 'custompassword');
+define('DB_PORT', '3306');
+define('DB_NAME', 'jonveitc_simplewall');
+define('DB_USER', 'jonveitc_simple');
+define('DB_PASS', 'asd90123');
 	
 ?>

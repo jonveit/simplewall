@@ -1,20 +1,19 @@
 <?php
 
-require_once "config.php";
 require_once "FirePHP.class.php";
+$firephp = FirePHP::getInstance(true);
 
-$firephp = FirePHP::getInstance(true); 
+// Only allow if logged in ******************
 
 session_start();
+
 if (!(isset($_SESSION['login']) && $_SESSION['login'] != '')) {
 	header ("Location: index.php");
 }
 
-// First Step is to Grab the Data from the URL
-////
+// First Step is to Grab the Data from the URL ********
 
-$url = $_GET['url'];
-$firephp->log($url);
+$url = $_POST['url'];
 
 function file_get_contents_curl($url)
 {
@@ -41,7 +40,6 @@ $nodes = $doc->getElementsByTagName('title');
 $title = '';
 $description = '';
 
-
 //get and display what you need:
 $title = $nodes->item(0)->nodeValue;
 
@@ -61,25 +59,41 @@ for ($i = 0; $i < $metas->length; $i++)
         $keywords = $meta->getAttribute('content');
 }
 
-try {
-	$db = new PDO("mysql:host=".DB_HOST.";port=".DB_PORT.";dbname=".DB_NAME.";charset=utf8", DB_USER, DB_PASS, 
-	array(PDO::ATTR_EMULATE_PREPARES => false, PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
-	
-	$userid = $_SESSION['userid'];
-	$date = date('l, F j, Y');
-	
-	$SQL = "INSERT INTO news (_f_user,title,url,description,date) VALUES (:userid,:title,:url,:description,:now)";
+if(!isset($imageurl)) {
+	$imageurl = "default.png";
+}
 
-	$q = $db->prepare($SQL);
-	$affected_rows = $q->execute(array(':userid'=>$userid,':title'=>$title, ':url'=>$url, ':description'=>$description, ':now'=>$date));
+// Second Step is to add new information to the database ******
+
+try {
+	
+	require_once "config.php";
+	require_once "dbaccess.php";
+	
+	$date = date('l, F j, Y');
+	$userid = $_SESSION['userid'];
+	
+	$SQL = "SELECT MIN(_z_order) AS old_index FROM post WHERE _f_user = '$userid'";
+	$statement = $db->query($SQL);
+	$row = $statement->fetch();
+	$old_index = $row['old_index'];
+	
+	if($old_index == NULL) {
+		$new_index = 100;	
+	} else {
+		$new_index = $old_index - 1;
+	}
+
+	$SQL = "INSERT INTO post(_f_user,title,url,description,postdate,_z_order) VALUES(:userid,:title,:url,:description,:now,:new_index)";
+	$statement = $db->prepare($SQL);
+	$affected_rows = $statement->execute(array(':userid'=>$userid,':title'=>$title, ':url'=>$url, ':description'=>$description, ':now'=>$date, ':new_index'=>$new_index));
 	
 	$postid = $db->lastInsertId();
 	
 	$SQL = "INSERT INTO image (_f_post,url) VALUES (:postid,:imageurl)";
-
 	$q = $db->prepare($SQL);
 	$affected_rows = $q->execute(array(':postid'=>$postid, ':imageurl'=>$imageurl));
 
 } catch(PDOException $e) {
-	echo $e->getMessage();
+	return $e->getMessage();
 }

@@ -1,15 +1,13 @@
 <?php
 
-require_once "config.php";
 require_once "FirePHP.class.php";
-
 $firephp = FirePHP::getInstance(true);
 
 try {
 	
-	$db = new PDO("mysql:host=".DB_HOST.";port=".DB_PORT.";dbname=".DB_NAME.";charset=utf8", DB_USER, DB_PASS, 
-	array(PDO::ATTR_EMULATE_PREPARES => false, PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
-
+	require_once "config.php";
+	require_once "dbaccess.php";
+	
 	$SQL = "SELECT id FROM user WHERE name = '$user'";
 	$statement = $db->query($SQL);
 	$num_rows = $statement->rowCount();
@@ -24,7 +22,7 @@ try {
 		echo "Error: No user found with that name.";
 	}
 
-	$SQL = "SELECT * from news WHERE _f_user = '$id'";
+	$SQL = "SELECT * from post WHERE _f_user = '$id' ORDER BY _z_order ASC";
     $statement = $db->query($SQL);
 	$num_rows = $statement->rowCount();
 
@@ -36,7 +34,7 @@ try {
 			$title = $row['title'];
 			$description = $row['description'];
 			$url = $row['url'];
-			$date = $row['date'];
+			$postdate = $row['postdate'];
 			
 			$SQL = "SELECT * FROM image WHERE _f_post = $id";
 			$imagestatement = $db->query($SQL);
@@ -47,11 +45,10 @@ try {
 				<li class='post' value='$id'>
 					<div class='postcontent'>
 						<h3><a href='$url' target="_blank">$title</a></h3>
-						<div>$date</div>
+						<div class=“postdate”>$postdate</div>
 						<div>
 							<img src='$imageurl' />
 							<p>$description</p>
-							<span><a href='$url' target="_blank">Read More...</a></span>
 						</div>
 					</div>
 				</li>
@@ -60,7 +57,7 @@ EOT;
 		}
 
 	} else {
-		echo "<p> Did not find any news for this user </p>";
+		echo "<li> Did not find any news for this user </li>";
 	} 
 
 } catch(PDOException $e) { 

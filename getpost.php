@@ -31,7 +31,7 @@ if (isset($_SESSION['login']) && $_SESSION['login'] != '' && isset($_SESSION['us
 		echo "Error: No user found with that name.";
 	}
 
-	$SQL = "SELECT * from news WHERE _f_user = '$id'";
+	$SQL = "SELECT * from post WHERE _f_user = '$id'";
 	$statement = $db->query($SQL);
 	$num_rows = $statement->rowCount();
 
@@ -52,7 +52,7 @@ if (isset($_SESSION['login']) && $_SESSION['login'] != '' && isset($_SESSION['us
 		}
 
 	} else {
-		echo "<p> Did not find any news for this user </p>";
+		echo "<p> Did not find any post for this user </p>";
 	}
 
 

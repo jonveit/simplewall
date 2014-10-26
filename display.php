@@ -8,7 +8,6 @@
 	<meta charset="UTF-8">
 	<title> Blog </title>
 	<link href='http://fonts.googleapis.com/css?family=Signika' rel='stylesheet' type='text/css'>
-	<link rel="stylesheet" type="text/css" href="style.css" />
 	<link rel="stylesheet" type="text/css" href="david.css">
 </head>
 <body>

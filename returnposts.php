@@ -1,41 +1,19 @@
 <?php
 
-require_once "config.php";
-require_once "FirePHP.class.php";
-
-$firephp = FirePHP::getInstance(true);
-
-///
-// Won't access the database without being logged on.
-///	
-
 session_start();
-if (!(isset($_SESSION['login']) && $_SESSION['login'] != '' && isset($_SESSION['user']))) {
-	header ("Location: index.php");
+
+if (!(isset($_SESSION['login']) && $_SESSION['login'] != '')) {
+	return "<li> Error Not Logged In </li>";
 }
 
 try {
 	
-	$db = new PDO("mysql:host=".DB_HOST.";port=".DB_PORT.";dbname=".DB_NAME.";charset=utf8", DB_USER, DB_PASS, 
-	array(PDO::ATTR_EMULATE_PREPARES => false, PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+	include "config.php";
+	include "dbaccess.php";
+		
+	$userid = $_SESSION['userid'];
 	
-	$user = $_SESSION['user'];
-
-	$SQL = "SELECT id FROM user WHERE name = '$user'";
-	$statement = $db->query($SQL);
-	$num_rows = $statement->rowCount();
-
-	if($num_rows == 1) {
-		$row = $statement->fetch();
-		$id = $row['id'];
-	} else if($num_rows > 1) {
-		echo "Error: Multiple users with the same name.  Check database.";
-	} 
-	else {
-		echo "Error: No user found with that name.";
-	}
-
-	$SQL = "SELECT * from news WHERE _f_user = '$id'";
+	$SQL = "SELECT * from post WHERE _f_user = '$userid' ORDER BY _z_order ASC";
     $statement = $db->query($SQL);
 	$num_rows = $statement->rowCount();
 
@@ -47,7 +25,7 @@ try {
 			$title = $row['title'];
 			$description = $row['description'];
 			$url = $row['url'];
-			$date = $row['date'];
+			$postdate = $row['postdate'];
 			
 			$SQL = "SELECT * FROM image WHERE _f_post = $id";
 			$imagestatement = $db->query($SQL);
@@ -62,7 +40,7 @@ try {
 				</div>
 				<div class='postcontent'>
 					<h3><a href='$url' target="_blank">$title</a></h3>
-					<div> $date </div>
+					<div> $postdate </div>
 					<div>
 						<img src='$imageurl' />
 						<p>$description</p>
@@ -75,11 +53,11 @@ EOT;
 		}
 
 	} else {
-		echo "<p> Did not find any news for this user </p>";
+		echo "<li> Did not find any news for this user </li>";
 	} 
 
 } catch(PDOException $e) { 
-	$errorMessage = $e->getMessage(); 
-	echo $errorMessage;
+	$errorMessage = $e->getMessage();
+	return "<li> $errorMessage </li>";
 }
 
